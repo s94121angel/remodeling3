@@ -1,0 +1,7 @@
+namePrefix: staging-
+commonLabels:
+  owner: s410071012
+bases:
+  - ../../base
+patches:
+  - replica_count.yaml

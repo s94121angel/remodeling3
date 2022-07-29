@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: remodeling-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: remodelingApp3
+  template: 
+    metadata:
+      labels:
+        app: remodelingApp3
+    spec:
+      containers:
+        - name: remodeling-container
+          image: s410071012/remodeling_platform3
+          command: ["/bin/sh"]
+          args: ["-c", "while true; do python3 /home/jovyan/train-code/train.py;sleep 3000;done"]
+          volumeMounts:
+          - mountPath: /home/jovyan/my-model
+            name: test-volume
+          ports:
+            - containerPort: 3900
+          imagePullPolicy: Always        
+      volumes:
+      - name: test-volume
+        hostPath:
+          path: /downloads3
+          type: Directory        
+
